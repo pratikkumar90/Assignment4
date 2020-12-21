@@ -51,6 +51,7 @@ public class ImageController {
         Image image = imageService.getImage(imageId);
         model.addAttribute("image", image);
         model.addAttribute("tags", image.getTags());
+        model.addAttribute("comments", image.getComments());
         return "images/image";
     }
 
@@ -105,6 +106,7 @@ public class ImageController {
         } else {
             model.addAttribute("image", image);
             model.addAttribute("tags", image.getTags());
+            model.addAttribute("comments", image.getComments());
             model.addAttribute("editError", ErrorMessages.EDIT_IMAGE_ERROR_MESSAGE);
             return "images/image";
         }
@@ -159,9 +161,16 @@ public class ImageController {
         } else {
             model.addAttribute("image", image);
             model.addAttribute("tags", image.getTags());
+            model.addAttribute("comments", image.getComments());
             model.addAttribute("deleteError", ErrorMessages.DELETE_IMAGE_ERROR_MESSAGE);
             return "images/image";
         }
+    }
+
+    @RequestMapping(value = "/image/{imageId}/{imageTitle}/comments", method = RequestMethod.POST)
+    public String addComment(@PathVariable Integer imageId, @PathVariable String imageTitle, @RequestParam("comment") String commentText, Model model, HttpSession session) {
+        imageService.addComment(commentText, imageService.getImage(imageId), (User) session.getAttribute("loggeduser"));
+        return showImage(imageTitle, imageId, model);
     }
 
 
