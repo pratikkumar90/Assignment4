@@ -167,12 +167,6 @@ public class ImageController {
         }
     }
 
-    @RequestMapping(value = "/image/{imageId}/{imageTitle}/comments", method = RequestMethod.POST)
-    public String addComment(@PathVariable Integer imageId, @PathVariable String imageTitle, @RequestParam("comment") String commentText, Model model, HttpSession session) {
-        imageService.addComment(commentText, imageService.getImage(imageId), (User) session.getAttribute("loggeduser"));
-        return showImage(imageTitle, imageId, model);
-    }
-
 
     //This method converts the image to Base64 format
     private String convertUploadedFileToBase64(MultipartFile file) throws IOException {

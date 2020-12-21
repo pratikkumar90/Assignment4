@@ -45,7 +45,7 @@ public class UserController {
         String password = user.getPassword();
         if (checkPassword(password)) {
             userService.registerUser(user);
-            return "redirect:/users/login";
+            return "users/login";
         } else {
             User newUser = new User();
             UserProfile profile = new UserProfile();

@@ -47,18 +47,4 @@ public class ImageService {
         imageRepository.deleteImage(imageId);
     }
 
-    /**
-     * Method to add a comment to the image
-     *
-     * @param comment
-     */
-    public void addComment(String commentText, Image image, User user) {
-        Comment comment = new Comment();
-        comment.setCreatedDate(LocalDate.now());
-        comment.setText(commentText);
-        comment.setUser(user);
-        comment.setImage(image);
-        imageRepository.addComment(comment);
-    }
-
 }
